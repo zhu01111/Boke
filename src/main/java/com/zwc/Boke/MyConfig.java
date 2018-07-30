@@ -15,7 +15,7 @@ public class MyConfig extends WebMvcConfigurerAdapter{
 	
 	@Value("${file.url}")
 	private String url;
-	
+	 
    /* @Override
     public void addViewControllers(ViewControllerRegistry registry) {
     	*//**

@@ -4,6 +4,8 @@ import org.apache.ibatis.jdbc.SQL;
 
 import com.zwc.Boke.pojo.User;
 
+
+
 public class UserSqlProvider {
 	public String insert(final User user){
 	  return new SQL(){
