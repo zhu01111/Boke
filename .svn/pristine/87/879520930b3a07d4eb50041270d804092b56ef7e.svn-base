@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<meta http-equiv="Access-Control-Allow-Origin" content="*" />
+<title>首页</title>
+</head>
+<script type="text/javascript" src="./jQuery/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="./layui/layui.js"></script>
+<script type="text/javascript" src="./layui/layui-xtree.js"></script>
+<link rel="stylesheet" href="./layui/css/layui.css" />
+<script type="text/javascript" src="./jQuery/gVerify.js"></script>
+<body>
+<!-- 	<input type="text" value='${name}'/>
+	<div>
+		<table id="myTable">
+			
+		</table>
+		
+	</div> -->
+   <!--  <div style="width: 100px" id="yzm"></div> -->
+   <#list users! as user>
+   		<li>${user.username}</li>
+   </#list>
+    <form class="layui-form">
+      <div id="xtree1" style="width:400px;border:1px black;padding: 10px 0 25px 5px;"></div>
+	</form>
+	
+	<div class="layui-form-item layui-row layui-col-xs12">
+			<label class="layui-form-label">主图</label>
+			<div class="layui-input-block" id="fileDiv1">
+				<button type="button" class="layui-btn" id="upload-1"><!-- <i class="layui-icon"></i> -->上传文件</button>
+				<img id="myImg" />
+			</div>
+			
+	</div>
+	
+</body>
+<script type="text/javascript">
+	var json = [{title:"节点1",value:"jd1",data:[{title:"节点1.1",value:"jd1.1",data:[]},{title:"节点1.2",value:"jd1.2",data:[]},{title:"节点1.3",value:"jd1.3",data:[]},{title:"节点1.4",value:"jd1.4",data:[]}]},{title:"节点2",value:"jd2",data:[{title:"节点2.1",value:"jd2.1",data:[]},{title:"节点2.2",value:"jd2.2",data:[{title:"节点2.2.1",value:"jd2.2.1",data:[]},{title:"节点2.2.2",value:"jd2.2.2",data:[]},{title:"节点2.2.3",value:"jd2.2.3",data:[]},{title:"节点2.2.4",value:"jd2.2.4",data:[]}]},{title:"节点2.3",value:"jd2.3",data:[]},{title:"节点2.4",value:"jd2.4",data:[]}]}];
+	/*var aa = new GVerify("yzm");*/
+	$(function(){
+		
+		$.ajax({
+			url:"getInfo",
+			data:{
+				a:11,
+				b:12,
+				location:"hangzhou"
+			},
+			contentType: "application/json; charset=utf-8",
+			success:function(res){
+				$("#aa").prop("href","../../../../"+res.msg);
+				if (res.code==0) {
+									
+				} else{
+					alert("你长的太丑了!");
+				}
+				var path = "https://bird.ioliu.cn/weather";
+				console.log(path);
+				$.getJSON(path,{city:"杭州"},function(json){					
+					console.log(json.result.weather);
+				});
+			}
+		});
+		});
+		layui.use(['form'], function () {
+        var form = layui.form;
+		var xtree3 = new layuiXtree({
+	       elem: 'xtree1'                  //必填
+	       , form: form                    //必填
+	       , data: json //必填
+	       , isopen: false  //加载完毕后的展开状态，默认值：true
+	       , ckall: true    //启用全选功能，默认值：false
+	       , ckallback: function () { } //全选框状态改变后执行的回调函数
+	       , click: function (data) {  //节点选中状态改变事件监听，全选框有自己的监听事件
+	           console.log(data.elem); //得到checkbox原始DOM对象
+	           console.log(data.elem.checked); //开关是否开启，true或者false
+	           console.log(data.elem.title); //开关value值，也可以通过data.elem.value得到
+	           console.log(data.othis); //得到美化后的DOM对象
+	           console.log(data);
+	       }
+		});
+	});
+	var f = new FileReader()
+	
+	layui.use('upload',function(){
+	  	var upload = layui.upload;
+		  	upload.render({
+		    elem: '#upload-1'
+		    ,url: 'uploadFile'
+		    ,accept: 'file' //普通文件
+		    ,multiple: true
+		    ,before: function(obj){
+			    //预读本地文件示例，不支持ie8
+			    obj.preview(function(index, file, result){
+			       $('#myImg').attr('src', result); //图片链接（base64）
+			    });
+		    }
+		    ,done: function(res){
+		    	console.log(res.data);
+		    	//$("#myImg").prop("src",res.data);
+		    }
+		});
+	});
+	
+</script>
+</html>

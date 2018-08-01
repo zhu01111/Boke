@@ -1,0 +1,7 @@
+#文件路径映射
+python:
+  path: ../usr/local/app/file/add.py
+file: 
+  #path: D://file/
+  path: /root/file/
+  url: /file/** 
