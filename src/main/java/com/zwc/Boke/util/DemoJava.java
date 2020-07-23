@@ -13,9 +13,9 @@ public class DemoJava {
 
     private String TIANQI_DAILY_WEATHER_URL = "https://api.seniverse.com/v3/weather/daily.json";
 
-    private String TIANQI_API_SECRET_KEY = "oq5ayi3eae12pvvc"; //
+    private String TIANQI_API_SECRET_KEY = ""; //
 
-    private String TIANQI_API_USER_ID = "U378A0EDC2"; //
+    private String TIANQI_API_USER_ID = ""; //
 
     /**心知天气
      * Generate HmacSHA1 signature with given data string and key
